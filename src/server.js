@@ -1,6 +1,6 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const routes = require('./routes')
+const cors = require('cors')
+const apiRoutes = require('./api')
 const errorHandler = require('./middlewares/errorHandler')
 const setupDB = require('./db')
 const server = express()
@@ -12,10 +12,12 @@ if (NODE_ENV !== 'test') {
   setupDB(MONGO_DB_CONNECT)
 }
 
-server.use(bodyParser.json())
-server.use(bodyParser.urlencoded({ extended: true }))
+server.use(cors())
 
-server.use(routes)
+server.use(express.json())
+server.use(express.urlencoded({ extended: true }))
+
+server.use('/api', apiRoutes())
 
 server.use(errorHandler)
 
