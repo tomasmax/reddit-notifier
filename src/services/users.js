@@ -181,6 +181,16 @@ async function sendNewsletterByEmail ({ id }) {
   }
 }
 
+async function getAllUsers() {
+  try {
+    const users = await User.find()
+    return users
+  } catch (err) {
+    console.error('Error getAllUsers', err.message)
+    throw new Error('Error getAllUsers', err.message)
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
@@ -189,5 +199,6 @@ module.exports = {
   removeFavoriteSubreddits,
   setSendNewsletter,
   getUserNewsletter,
-  sendNewsletterByEmail
+  sendNewsletterByEmail,
+  getAllUsers
 }

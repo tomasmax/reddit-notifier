@@ -28,6 +28,24 @@ function sendEmail ({
     })
 }
 
+async function newsletterEmailScheduler () {
+  const schedule = require('node-schedule')
+  const { getAllUsers, sendNewsletterByEmail } = require('./users')
+
+  // Execute a cron job when the hour is 8
+  const job = schedule.scheduleJob({ minute: 9 }, async () => {
+    console.log('newsletterEmailScheduler sending daily emails')
+    const users = await getAllUsers()
+
+    await Promise.all(users.map(async ({ id }) => {
+      await sendNewsletterByEmail({ id })
+    }))
+  })
+
+  return job
+}
+
 module.exports = {
-  sendEmail
+  sendEmail,
+  newsletterEmailScheduler
 }

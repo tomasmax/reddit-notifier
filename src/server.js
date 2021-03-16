@@ -6,6 +6,7 @@ const setupDB = require('./db')
 const server = express()
 const path = require('path')
 require('dotenv').config()
+const { newsletterEmailScheduler } = require('./services/emailSender')
 
 const { NODE_ENV, MONGO_DB_CONNECT = 'mongodb://admin:admin@localhost:27017/reddit-notifier?authSource=admin' } = process.env
 
@@ -24,5 +25,6 @@ server.use('/api', apiRoutes())
 server.use(errorHandler)
 server.set('view engine', 'pug')
 server.set('views', path.join(__dirname, 'views'))
+newsletterEmailScheduler()
 
 module.exports = server
