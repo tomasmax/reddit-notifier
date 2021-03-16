@@ -1,0 +1,87 @@
+body {
+  background: white;
+  padding: 24px;
+  font-family: Verdana, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.newsletter-title {
+  text-align: center;
+}
+
+.subreddit-title {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 8px;
+  text-transform: capitalize;
+}
+
+.subreddit-url {
+  text-transform: none;
+  word-break: break-all;
+}
+
+.newsletter-postList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-box {
+  width: 85%;
+  background: rgb(238, 238, 238);
+  margin: 50px auto;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);  
+  min-height: 200px;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 800px) {
+  .post-box {
+    width: 95%;
+  }
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.post-title {
+  color: black;
+  margin-left: 8px;
+}
+
+.post-ups {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 30px;
+  height: 30px;
+  width: 34px;
+  background-color: #FFA500;
+  border-radius: 50%;
+  word-break: keep-all;
+}
+
+@media only screen and (max-width: 800px) {
+  .post-ups {
+    font-size: 18px;
+  }
+}
+
+.post-previewImage {
+  max-width: 100%;
+  height: auto;
+  padding-top: 8px;
+}

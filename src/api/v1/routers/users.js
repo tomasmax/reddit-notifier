@@ -5,7 +5,9 @@ const {
   updateUser,
   addFavoriteSubreddits,
   removeFavoriteSubreddits,
-  setSendNewsletter
+  setSendNewsletter,
+  getUserNewsletter,
+  sendNewsletterByEmail
 } = require('../../../controllers/users')
 
 function usersRouter () {
@@ -18,6 +20,8 @@ function usersRouter () {
   router.patch('/favorite-subreddits/add', addFavoriteSubreddits)
   router.patch('/favorite-subreddits/remove', removeFavoriteSubreddits)
   router.patch('/setSendNewsletter', setSendNewsletter)
+  router.get('/:id/newsletter', getUserNewsletter)
+  router.get('/:id/send-newsletter', sendNewsletterByEmail)
 
   return router
 }

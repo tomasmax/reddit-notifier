@@ -1,0 +1,25 @@
+
+doctype html
+head
+  style
+    include newsletter.css
+  h1.newsletter-title
+    b Reddit Newsletter
+body.newsletter-body
+  h3.newsletter-hello Hello #{user.name},
+  p See yesterday's top voted posts from your favorite channels
+  ul.newsletter-postList
+    each topPosts, subreddit in newsletter
+      li.newsletter-post
+        h2.subreddit-title= `${subreddit}: `
+          a.subreddit-url(href= topPosts[0].subredditUrl, target="_blank", rel="noopener noreferrer")= topPosts[0].subredditUrl
+      each post in topPosts
+        div.post-box
+          a.post-header(href= post.permalink, target="_blank", rel="noopener noreferrer")
+            span.post-ups= post.upsFormatted
+            h3.post-title= post.title
+          if post.previewImage
+            img.post-previewImage(src=post.previewImage alt="")
+          else
+            img.post-previewImage(src='https://endosclick.es/wp-content/uploads/2019/04/placeholder-image.jpg' alt="")
+                

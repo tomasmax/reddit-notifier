@@ -128,11 +128,55 @@ async function setSendNewsletter (req, res, next) {
   }
 }
 
+async function getUserNewsletter (req, res, next) {
+  try {
+    const { id } = req.params
+
+    if (!id) {
+      throw new BadRequest('Missing required parameter user id')
+    }
+
+    const { user, newsletter } = await usersService.getUserNewsletter({ id })
+
+    if (!newsletter) {
+      throw new NotFound()
+    }
+
+    const { contentType } = req.query
+
+    if (contentType === 'html') {
+      return res.render('reddit/newsletter', { user, newsletter })
+    }
+
+    return res.json(newsletter)
+  } catch (err) {
+    next(err)
+  }
+}
+
+async function sendNewsletterByEmail (req, res, next) {
+  try {
+    const { id } = req.params
+
+    const response = usersService.sendNewsletterByEmail({ id })
+
+    if (!response) {
+      throw new NotFound()
+    }
+
+    res.status(200).json({ message: 'Email sent' })
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   getUser,
   createUser,
   updateUser,
   addFavoriteSubreddits,
   removeFavoriteSubreddits,
-  setSendNewsletter
+  setSendNewsletter,
+  getUserNewsletter,
+  sendNewsletterByEmail
 }

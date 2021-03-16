@@ -126,11 +126,68 @@ async function setSendNewsletter ({ id, sendNewsletter }) {
   }
 }
 
+async function getUserNewsletter ({ id }) {
+  try {
+    const user = await User.findOne({ id })
+
+    if (!user) {
+      return
+    }
+
+    const { getSubredditTopPosts } = require('./reddit')
+    const newsletter = {}
+
+    await Promise.all(
+      user.favoriteSubreddits.map(async (subreddit) => {
+        console.log(
+          `Creating user ${id} newsletter for subreddit ${subreddit}`
+        )
+        newsletter[subreddit] = await getSubredditTopPosts({ subreddit })
+      })
+    )
+
+    return { user, newsletter }
+  } catch (err) {
+    console.error('Error getUserNewsletter', err.message)
+    throw new Error('Error getUserNewsletter', err.message)
+  }
+}
+
+async function sendNewsletterByEmail ({ id }) {
+  try {
+    const { user, newsletter } = await getUserNewsletter({ id })
+
+    if (!user) {
+      return
+    }
+
+    const pug = require('pug')
+    const path = require('path')
+    const { sendEmail } = require('./emailSender')
+    const html = pug.renderFile(
+      path.join(__dirname, '../views/reddit/newsletter.pug'),
+      {
+        user,
+        newsletter
+      }
+    )
+
+    sendEmail({ to: user.email, html })
+
+    return user
+  } catch (err) {
+    console.error('Error sendNewsletterByEmail', err.message)
+    throw new Error('Error sendNewsletterByEmail', err.message)
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
   addFavoriteSubreddits,
   removeFavoriteSubreddits,
-  setSendNewsletter
+  setSendNewsletter,
+  getUserNewsletter,
+  sendNewsletterByEmail
 }
