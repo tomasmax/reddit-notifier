@@ -33,7 +33,7 @@ async function newsletterEmailScheduler () {
   const { getAllUsers, sendNewsletterByEmail } = require('./users')
 
   // Execute a cron job when the hour is 8
-  const job = schedule.scheduleJob({ minute: 9 }, async () => {
+  const job = schedule.scheduleJob({ hour: 8 }, async () => {
     console.log('newsletterEmailScheduler sending daily emails')
     const users = await getAllUsers()
 
