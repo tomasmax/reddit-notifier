@@ -8,7 +8,7 @@ const path = require('path')
 require('dotenv').config()
 const { newsletterEmailScheduler } = require('./services/emailSender')
 
-const { NODE_ENV, MONGO_DB_CONNECT = 'mongodb://admin:admin@localhost:27017/reddit-notifier?authSource=admin' } = process.env
+const { NODE_ENV, MONGO_DB_CONNECT } = process.env
 
 // Set up DB connection
 if (NODE_ENV !== 'test') {
