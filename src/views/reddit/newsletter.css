@@ -81,7 +81,8 @@ a {
 }
 
 .post-previewImage {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  max-height: 1000px;
   padding-top: 8px;
 }
