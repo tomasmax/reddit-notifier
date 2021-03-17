@@ -27,7 +27,9 @@ async function createUser (req, res, next) {
       !favoriteSubreddits ||
       typeof sendNewsletter === 'undefined'
     ) {
-      throw new BadRequest('Check you sent all needed params')
+      throw new BadRequest(
+        'Missing required parameter, check you sent all needed params: id, name, email, favoriteSubrreddits and sendNewsletter'
+      )
     }
 
     const user = await usersService.createUser({

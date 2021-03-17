@@ -7,10 +7,14 @@ const fromThousandsNumberToKString = (number = 0) =>
 /**
  *
  * @param {string} subreddit - Subreddit name
- * @param {string} time - Timeframe for posts
+ * @param {string} time - Posts date timeframe ('day')
  * @param {number} limit - Limit posts amount
  */
-async function getSubredditTopPosts ({ subreddit, limit = 3, time = 'day' }) {
+async function getSubredditTopPosts ({
+  subreddit,
+  limit = 3,
+  time = 'day'
+} = {}) {
   try {
     const topPostsApiResponse = await axios.get(
       `https://www.reddit.com/r/${subreddit}/top.json?limit=${limit}&time=${time}`
@@ -46,15 +50,15 @@ async function getSubredditTopPosts ({ subreddit, limit = 3, time = 'day' }) {
             preview &&
             preview.images &&
             preview.images[0] &&
-            (preview.images[0].source.url).replace(/&amp;/g, '&')
+            preview.images[0].source.url.replace(/&amp;/g, '&')
         }
       })
 
       return mappedPosts
     }
   } catch (err) {
-    console.error('Error getting top posts from reddit API', err.message)
-    throw new Error('Error getting top posts from reddit API')
+    console.error('Error getting top posts from reddit API:', err.message)
+    throw new Error('Error getting top posts from reddit API:', err.message)
   }
 }
 

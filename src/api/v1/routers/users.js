@@ -19,7 +19,7 @@ function usersRouter () {
   router.put('/', updateUser)
   router.patch('/favorite-subreddits/add', addFavoriteSubreddits)
   router.patch('/favorite-subreddits/remove', removeFavoriteSubreddits)
-  router.patch('/setSendNewsletter', setSendNewsletter)
+  router.patch('/set-send-newsletter', setSendNewsletter)
   router.get('/:id/newsletter', getUserNewsletter)
   router.get('/:id/send-newsletter', sendNewsletterByEmail)
 

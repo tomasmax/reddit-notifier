@@ -7,7 +7,7 @@ async function createUser ({
   email,
   favoriteSubreddits,
   sendNewsletter
-}) {
+} = {}) {
   try {
     const user = await User.create({
       id,
@@ -18,18 +18,22 @@ async function createUser ({
     })
     return user
   } catch (err) {
-    console.error('Cant create a new user', err.message)
-    throw new Error('Cant create a new user', err.message)
+    console.error('Cant create a new user:', err.message)
+    throw new Error('Cant create a new user:', err.message)
   }
 }
 
-async function getUser ({ id }) {
+async function getUser ({ id } = {}) {
   try {
     const user = await User.findOne({ id })
+
+    if (!user) {
+      return
+    }
     return user
   } catch (err) {
-    console.error('Error getting user', err.message)
-    throw new Error('Error getting user', err.message)
+    console.error('Error getting user:', err.message)
+    throw new Error('Error getting user:', err.message)
   }
 }
 
@@ -39,7 +43,7 @@ async function updateUser ({
   email,
   favoriteSubreddits,
   sendNewsletter
-}) {
+} = {}) {
   try {
     const user = await User.findOne({ id })
 
@@ -56,12 +60,12 @@ async function updateUser ({
     user.save()
     return user
   } catch (err) {
-    console.error('Error updating user', err.message)
-    throw new Error('Error updating user', err.message)
+    console.error('Error updating user:', err.message)
+    throw new Error('Error updating user:', err.message)
   }
 }
 
-async function addFavoriteSubreddits ({ id, favoriteSubreddits }) {
+async function addFavoriteSubreddits ({ id, favoriteSubreddits } = {}) {
   try {
     const user = await User.findOne({ id })
 
@@ -80,12 +84,12 @@ async function addFavoriteSubreddits ({ id, favoriteSubreddits }) {
     user.save()
     return user
   } catch (err) {
-    console.error('Error adding favorite subreddits', err.message)
-    throw new Error('Error adding favorite subreddits', err.message)
+    console.error('Error adding favorite subreddits:', err.message)
+    throw new Error('Error adding favorite subreddits:', err.message)
   }
 }
 
-async function removeFavoriteSubreddits ({ id, favoriteSubreddits }) {
+async function removeFavoriteSubreddits ({ id, favoriteSubreddits } = {}) {
   try {
     const user = await User.findOne({ id })
 
@@ -103,12 +107,12 @@ async function removeFavoriteSubreddits ({ id, favoriteSubreddits }) {
     user.save()
     return user
   } catch (err) {
-    console.error('Error removing favorite subreddits', err.message)
-    throw new Error('Error removing favorite subreddits', err.message)
+    console.error('Error removing favorite subreddits:', err.message)
+    throw new Error('Error removing favorite subreddits:', err.message)
   }
 }
 
-async function setSendNewsletter ({ id, sendNewsletter }) {
+async function setSendNewsletter ({ id, sendNewsletter } = {}) {
   try {
     const user = await User.findOne({ id })
 
@@ -121,12 +125,12 @@ async function setSendNewsletter ({ id, sendNewsletter }) {
     user.save()
     return user
   } catch (err) {
-    console.error('Error setSendNewsletter', err.message)
-    throw new Error('Error setSendNewsletter', err.message)
+    console.error('Error setSendNewsletter:', err.message)
+    throw new Error('Error setSendNewsletter:', err.message)
   }
 }
 
-async function getUserNewsletter ({ id }) {
+async function getUserNewsletter ({ id } = {}) {
   try {
     const user = await User.findOne({ id })
 
@@ -148,12 +152,12 @@ async function getUserNewsletter ({ id }) {
 
     return { user, newsletter }
   } catch (err) {
-    console.error('Error getUserNewsletter', err.message)
-    throw new Error('Error getUserNewsletter', err.message)
+    console.error('Error getUserNewsletter:', err.message)
+    throw new Error('Error getUserNewsletter:', err.message)
   }
 }
 
-async function sendNewsletterByEmail ({ id }) {
+async function sendNewsletterByEmail ({ id } = {}) {
   try {
     const { user, newsletter } = await getUserNewsletter({ id })
 
@@ -172,16 +176,17 @@ async function sendNewsletterByEmail ({ id }) {
       }
     )
 
-    sendEmail({ to: user.email, html })
+    console.log(`Sending email for user ${user.name} to email ${user.email}`)
+    const isEmailSent = sendEmail({ to: user.email, html })
 
-    return user
+    return isEmailSent
   } catch (err) {
-    console.error('Error sendNewsletterByEmail', err.message)
-    throw new Error('Error sendNewsletterByEmail', err.message)
+    console.error('Error sendNewsletterByEmail:', err.message)
+    throw new Error('Error sendNewsletterByEmail:', err.message)
   }
 }
 
-async function getAllUsers() {
+async function getAllUsers () {
   try {
     const users = await User.find()
     return users

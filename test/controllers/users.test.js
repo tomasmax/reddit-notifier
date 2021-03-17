@@ -129,7 +129,7 @@ describe('Controllers/users', () => {
       sendNewsletter: true
     }
     const response = await request
-      .patch(`${usersApiPath}/setSendNewsletter`)
+      .patch(`${usersApiPath}/set-send-newsletter`)
       .send(addSubredditsParams)
 
     expect(response.status).toBe(200)
@@ -137,5 +137,28 @@ describe('Controllers/users', () => {
       ...userParams,
       sendNewsletter: true
     })
+  })
+
+  it('Should get a user newsletter in json', async () => {
+    await createUser()
+
+    const response = await request.get(`${usersApiPath}/tomasmax/newsletter`)
+
+    expect(response.status).toBe(200)
+    expect(response.type).toEqual('application/json')
+    expect(Object.keys(response.body)).toEqual(
+      expect.arrayContaining(userParams.favoriteSubreddits)
+    )
+  })
+
+  it('Should get a user newsletter in html', async () => {
+    await createUser()
+
+    const response = await request.get(
+      `${usersApiPath}/tomasmax/newsletter?contentType=html`
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.type).toEqual('text/html')
   })
 })
