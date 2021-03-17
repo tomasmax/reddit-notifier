@@ -20,6 +20,7 @@ a {
 }
 
 .subreddit-url {
+  color: black;
   text-transform: none;
   word-break: break-all;
 }

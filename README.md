@@ -1,5 +1,7 @@
 # Reddit Notifier
 
+[Demo](https://reddit-newsletter-notifier.herokuapp.com/api/v1/users/tomasmax/newsletter?contentType=html)
+
 A nodeJS express service that handles:
  - Creating and updating users
  - Adding, and updating a user's favorite subreddits
@@ -7,6 +9,7 @@ A nodeJS express service that handles:
  - Turning on and off the newsletter send out for a specific user
 
  **Rest API endpoints:**
+ [Deployed base url](https://reddit-newsletter-notifier.herokuapp.com)
 
  ```
  GET   /api/v1/users/:id
