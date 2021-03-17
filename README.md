@@ -1,5 +1,4 @@
-# H1
-Reddit Notifier
+# Reddit Notifier
 
 A nodeJS express service that handles:
  - Creating and updating users
@@ -7,7 +6,7 @@ A nodeJS express service that handles:
  - Sending out an email to each user at a choosen time (default daily at 8am), containing the top posts of each of their favorite subreddits
  - Turning on and off the newsletter send out for a specific user
 
- ** Rest API endpoints: **
+ **Rest API endpoints:**
 
  ```
  GET   /api/v1/users/:id
@@ -36,9 +35,9 @@ A nodeJS express service that handles:
 
  ```
 
-** To run it locally: **
+**To run it locally:**
   - Install dependencies `npm install`
-  - Set your env variables in the root folder `.env`
+  - Set your env variables in the project root folder `.env`
     ```
     MONGO_DB_CONNECT=Your_mongo_db_connect_URI # Example: mongodb://admin:admin@localhost:27017/reddit-notifier?authSource=admin
     SENDGRID_API_KEY=Your_sendgrid_API_KEY
@@ -46,7 +45,7 @@ A nodeJS express service that handles:
   - Run without watching `npm run start`
   - Run for dev (watches for any files changes) `npm run start:dev`
 
-** To run tests **
+**To run tests**
   - After dependencies are installed
   - Run test `npm run test`
   - Run test watching for changes `npm run test:watch`
