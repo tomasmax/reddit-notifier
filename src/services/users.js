@@ -57,7 +57,7 @@ async function updateUser ({
     user.favoriteSubreddits = favoriteSubreddits || user.favoriteSubreddits
     user.sendNewsletter = sendNewsletter || user.sendNewsletter
 
-    user.save()
+    await user.save()
     return user
   } catch (err) {
     console.error('Error updating user:', err.message)
@@ -81,7 +81,7 @@ async function addFavoriteSubreddits ({ id, favoriteSubreddits } = {}) {
       ...user.favoriteSubreddits,
       ...favoriteSubreddits
     ]
-    user.save()
+    await user.save()
     return user
   } catch (err) {
     console.error('Error adding favorite subreddits:', err.message)
@@ -104,7 +104,7 @@ async function removeFavoriteSubreddits ({ id, favoriteSubreddits } = {}) {
     user.favoriteSubreddits = user.favoriteSubreddits.filter(
       (subreddit) => !favoriteSubreddits.includes(subreddit)
     )
-    user.save()
+    await user.save()
     return user
   } catch (err) {
     console.error('Error removing favorite subreddits:', err.message)
@@ -122,7 +122,7 @@ async function setSendNewsletter ({ id, sendNewsletter } = {}) {
 
     user.sendNewsletter = sendNewsletter
 
-    user.save()
+    await user.save()
     return user
   } catch (err) {
     console.error('Error setSendNewsletter:', err.message)

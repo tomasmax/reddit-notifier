@@ -86,4 +86,5 @@ a {
   height: auto;
   max-height: 1000px;
   padding-top: 8px;
+  object-fit: cover;
 }
